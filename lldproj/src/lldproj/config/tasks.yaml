@@ -1,0 +1,297 @@
+structural_validation_task:
+  description: >
+    Analyze the provided UML Class Diagram representation and perform
+    structural validation of the low level design.
+    User input: {user_input}
+    Diagram input: {diagram_input}
+
+    Focus only on the structural components of the diagram including:
+    classes, attributes, methods, interfaces, and basic UML constructs.
+
+    Perform the following checks:
+
+    1. CLASS VALIDATION
+       - verify class name correctness
+       - verify visibility modifiers (+ public, - private, # protected, ~ package)
+       - detect duplicate class definitions
+
+    2. ATTRIBUTE VALIDATION
+       - verify attribute name correctness
+       - verify attribute data types
+       - validate default values
+       - validate static attributes
+       - validate immutable / final attributes
+
+    3. METHOD VALIDATION
+       - verify method names
+       - validate parameter lists
+       - validate return types
+       - validate static methods
+       - validate abstract methods
+       - validate overloaded methods
+
+    4. INTERFACE VALIDATION
+       - verify interface definitions
+       - ensure interfaces contain abstract methods
+       - verify implementing classes
+
+    5. STRUCTURAL RELATION VALIDATION
+       - validate inheritance relationships
+       - validate associations
+       - validate aggregations
+       - validate compositions
+       - validate dependencies
+       - validate generalization
+       - validate realization relationships
+
+    Input diagram data may be provided in JSON, XML, or intermediate
+    representation extracted from draw.io diagrams.
+
+    Identify structural errors, inconsistencies, or missing elements.
+
+  expected_output: >
+    A structured structural validation report containing:
+
+    - Valid classes list
+    - Detected structural errors
+    - Invalid attribute or method definitions
+    - Incorrect visibility modifiers
+    - Interface validation results
+    - Structural relationship issues
+    - Suggested corrections for each issue
+
+    The output should be formatted as a clear markdown report without 
+
+  agent: structural_validator
+  output_file: "output/structural_validation_report.md"
+   
+
+relationship_validation_task:
+  description: >
+    Analyze the relationships between classes in the UML Class Diagram
+    and validate the correctness of object oriented relationships.
+    User input: {user_input}
+    Diagram input: {diagram_input}
+    Perform validation on the following relationship types:
+
+    1. ASSOCIATION
+       - verify direction
+       - verify role names
+       - verify navigability
+       - validate multiplicity values
+
+    2. AGGREGATION
+       - validate whole–part relationship
+       - verify weak ownership
+       - ensure lifecycle independence of parts
+
+    3. COMPOSITION
+       - validate strong ownership
+       - ensure parts lifecycle depends on the whole
+       - detect illegal shared ownership
+
+    4. INHERITANCE
+       - verify parent class existence
+       - validate inheritance hierarchy
+       - detect circular inheritance
+       - validate Liskov Substitution Principle compliance
+
+    5. DEPENDENCY
+       - detect temporary usage relationships
+       - identify unnecessary dependencies
+       - detect cyclic dependencies
+
+    6. MULTIPLICITY VALIDATION
+       - validate cardinality values (1, 0..1, *, 1..*)
+       - ensure bidirectional multiplicity consistency
+
+    7. DESIGN PATTERN DETECTION
+       Identify if the diagram represents known design patterns including:
+
+       Creational Patterns
+       - Factory Method
+       - Abstract Factory
+       - Builder
+       - Prototype
+       - Singleton
+
+       Structural Patterns
+       - Adapter
+       - Bridge
+       - Composite
+       - Decorator
+       - Facade
+       - Proxy
+
+       Behavioral Patterns
+       - Chain of Responsibility
+       - Command
+       - Interpreter
+       - Iterator
+       - Mediator
+       - Memento
+       - Observer
+       - State
+       - Strategy
+       - Template Method
+       - Visitor
+
+  expected_output: >
+    A detailed relationship validation report including:
+
+    - Verified relationships
+    - Invalid or missing relationships
+    - Multiplicity errors
+    - Cyclic dependency detection
+    - Inheritance hierarchy issues
+    - Detected design patterns
+    - Suggestions to improve relationship modeling
+
+    The report must be formatted as structured markdown without
+
+  agent: relationship_validator
+  output_file: "output/relationship_validation_report.md"
+
+
+design_quality_analysis_task:
+  description: >
+    Evaluate the overall design quality of the UML Class Diagram based on
+    software engineering principles and architectural best practices.
+    User input: {user_input}
+    Diagram input: {diagram_input}
+    Perform the following design quality analysis:
+
+    1. SOLID PRINCIPLE VALIDATION
+       - Single Responsibility Principle violations
+       - Open Closed Principle violations
+       - Liskov Substitution Principle violations
+       - Interface Segregation Principle violations
+       - Dependency Inversion Principle violations
+
+    2. COUPLING ANALYSIS
+       - detect tightly coupled classes
+       - identify unnecessary dependencies
+       - verify dependency on abstractions rather than concrete classes
+
+    3. COHESION ANALYSIS
+       - evaluate functional cohesion of classes
+       - detect low cohesion classes
+       - detect mixed responsibilities
+
+    4. DESIGN SMELL DETECTION
+       - God Class detection
+       - Feature Envy detection
+       - Data Class detection
+       - Cyclic dependency detection
+
+    5. CLASS SIZE ANALYSIS
+       - detect classes with too many attributes
+       - detect classes with excessive methods
+       - detect overloaded responsibilities
+
+    6. ENCAPSULATION VALIDATION
+       - ensure attributes are properly encapsulated
+       - validate controlled access through methods
+       - verify getter/setter usage
+
+    7. NAMING CONVENTIONS
+       - class names follow PascalCase
+       - method names follow camelCase
+       - attribute names follow camelCase
+
+    8. ARCHITECTURAL LAYER VALIDATION
+       validate logical layer separation including:
+
+       - controller layer
+       - service layer
+       - repository / data layer
+       - domain model layer
+
+  expected_output: >
+    A comprehensive design quality assessment report including:
+
+    - SOLID principle compliance analysis
+    - coupling and cohesion analysis
+    - detected design smells
+    - class size and responsibility analysis
+    - encapsulation evaluation
+    - architectural layer validation
+    - recommendations for improving design quality
+
+    The output must be formatted as a structured markdown report without 
+
+  agent: design_quality_analyzer
+  output_file: "output/design_quality_analysis_report.md"
+
+
+feedback_evaluation_task:
+  description: >
+
+    Collect and analyze the validation outputs produced by the following agents:
+
+    - structural_validator
+    - relationship_validator
+    - design_quality_analyzer
+      User input: {user_input}
+      Diagram input: {diagram_input}
+
+    Combine their results and generate a final evaluation of the UML class
+    diagram low level design.
+
+    The evaluation must assess the diagram across all dimensions mentioned in
+    the agent tasks including:
+
+    - class structure validation
+    - attribute and method validation
+    - interface correctness
+    - inheritance and relationships
+    - multiplicity correctness
+    - design pattern presence
+    - SOLID principle adherence
+    - coupling and cohesion
+    - design smell detection
+    - encapsulation quality
+    - architecture layer separation
+
+    Use the findings to compute an overall design score and generate a
+    comprehensive evaluation summary.
+
+  expected_output: >
+    The output MUST be valid JSON and follow this exact structure:
+
+    {
+      "score": {
+        "structural_validation": number,
+        "relationship_validation": number,
+        "design_quality": number,
+        "design_patterns": number,
+        "solid_principles": number,
+        "coupling_cohesion": number,
+        "architecture_layering": number,
+        "overall_score": number
+      },
+
+      "description": "A detailed markdown formatted explanation describing
+      the overall design evaluation including strengths, weaknesses, and
+      technical observations derived from the validator agents.",
+
+      "improvement": {
+        "improvement_tips": [
+          "Tip 1 describing structural improvements",
+          "Tip 2 describing relationship fixes",
+          "Tip 3 describing SOLID principle improvements",
+          "Tip 4 describing architectural improvements",
+          "Tip 5 describing design pattern suggestions"
+        ]
+      }
+    }
+
+    The description field must be a single markdown formatted string.
+    The improvement tips must be concise actionable recommendations.
+
+  agent: feedback_evaluator
+  context:
+    - structural_validation_task
+    - relationship_validation_task
+    - design_quality_analysis_task
+  output_file: "output/feedback_evaluation_report.md"
