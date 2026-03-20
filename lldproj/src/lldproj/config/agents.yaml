@@ -226,7 +226,7 @@ feedback_evaluator:
 
     The evaluation must include:
 
-    1. Scoring of each major evaluation dimension
+    1. Scoring of each major evaluation dimension  (0-100) [score between 0 to 100 only]:
         - structural correctness
         - relationship correctness
         - design pattern detection
